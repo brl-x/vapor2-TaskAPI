@@ -24,18 +24,7 @@ extension Droplet {
         
         try resource("posts", PostController.self)
         
-        post("task") { request in
-            guard let json = request.json else {
-                throw Abort.badRequest
-            }
-            
-            let task = try Task(json: json)
-            tasks.append(task)
-            return try task.makeJSON()
-        }
-        
-        get("task") { request in
-            return try tasks.makeJSON()
-        }
+        try resource("task", TaskController.self)
+
     }
 }
